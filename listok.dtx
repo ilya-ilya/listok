@@ -1,0 +1,532 @@
+% \iffalse meta-comment
+%
+% Copyright (C) 2018 by Ilya
+% -----------------------------------
+%
+% This file may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in:
+%
+%    http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{listok.dtx}
+%</driver>
+%<common>\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+%<listok>\ProvidesClass{listok}
+%<ustn>\ProvidesClass{ustn}
+%<test>\ProvidesClass{test}
+%<written>\ProvidesClass{written}
+%<a4>\ProvidesFile{a4.clo}
+%<a5>\ProvidesFile{a5.clo}
+%<lua>\ProvidesFile{lua.clo}
+%<pdf>\ProvidesFile{pdf.clo}
+%<*common>
+	[2019/01/09 v2.1  Наши крутые шаблоны для листков]
+%</common>
+%
+%<*driver>
+\documentclass[a4paper, 11pt]{ltxdoc}
+\usepackage[TU]{fontenc}
+\usepackage[lutf8]{luainputenc}
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\usepackage[russian]{babel}
+\usepackage[a4paper, height = 270mm, left = 3cm, right = 1cm, centering]{geometry}
+\usepackage{longtable}
+\usepackage{tabu}
+\usepackage{multirow}
+\usepackage{amsmath, amssymb, amsfonts, amsthm}
+\usepackage{microtype}
+\usepackage[inline]{enumitem}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+\DocInput{listok.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+%
+% \GetFileInfo{listok.dtx}
+%
+% \DoNotIndex{\begin, \else, \end, \endinput, \fi, \forloop, \fill}
+% \DoNotIndex{\;, \\, \centering, \endquotation, \quotation}
+% \DoNotIndex{\AtBeginShipout, \AtBeginShipoutBox, \box, \copy}
+% \DoNotIndex{\circ, \geqslant}
+%
+% \title{Семейство классов \textsf{listok} \thanks{Этот документ относится к \textsf{listok}~\fileversion, от \filedate}}
+% \author{Илья Райко \\ \texttt{rayko\_i@179.ru}}
+%
+% \maketitle
+%
+% \begin{abstract}
+% 	Классы, используемый нашей командой для вёрстки листков.
+% \end{abstract}
+%
+% \section{Введение}
+%
+% На данный момент у нас есть классы \textsf{listok}, \textsf{written}, \textsf{ustn}, \textsf{test}.
+% \textsf{listok}  используется для вёрстки листков,
+% \textsf{written} и \textsf{ustn} используются для вёрстки письменных и устных собеседований,
+% \textsf{test} используется для контрольных работ.
+%
+% Разница между ними описана в следующей табличке
+%
+% \begin{longtabu} to \textwidth {|c|c|c|c|c|}
+% \hline
+%  & \textsf{listok} & \textsf{test} & \textsf{written} & \textsf{ustn} \\
+% \hline
+% \multirow{2}{*}{Заголовок} & \multicolumn{4}{c|}{\texttt{\textbackslash{}title\{Title\}}} \\
+% \cline{2-5}
+% & {\Large \textit{ \textbf{ \underline{Title}}}} &  {\Large \textit{ \textbf{ \underline{Title. Вариант №|num| }}}} & \multicolumn{2}{c|}{\Large \textit{ \textbf{ \underline{\dots{}  собеседование}}}}\\
+% \hline
+% \multirow{2}{*}{Задача} & \multicolumn{4}{c|}{\texttt{\textbackslash{}begin\{problem\}[Text]}} \\
+% \cline{2-5}
+% & \textbf{Задача |num|.|problem|}\textit{Text} & \multicolumn{3}{c|}{\textbf{Задача |problem|}\textit{Text}} \\
+% \hline
+% \multirow{2}{*}{Пример} & \multicolumn{4}{c|}{\texttt{\textbackslash{}begin\{example\}[Text]}} \\
+% \cline{2-5}
+% & \textbf{Пример |num|.|example|}\textit{Text} & \multicolumn{3}{c|}{\textbf{Пример |example|}\textit{Text}} \\
+% \hline
+% \multirow{2}{*}{Теорема} & \multicolumn{4}{c|}{\texttt{\textbackslash{}begin\{theorem\}[Text]}} \\
+% \cline{2-5}
+% & \textbf{Теорема |num|.|theorem|} \textit{(Text)} & \multicolumn{3}{c|}{\textbf{Теорема |theorem|} \textit{(Text)}} \\
+% \hline
+% \end{longtabu}
+%
+% При этом у классов есть ещё некоторые индивидуальные особенности, которые будут описаны ниже.
+%
+% \section{Параметры классов}
+% \subsection{Формат бумаги}
+%    \begin{macrocode}
+%<common>\RequirePackage{kvoptions}
+%<common>\newcommand{\@paperfile}{}
+%<common>\DeclareOption{a4paper}{\renewcommand{\@paperfile}{a4.clo}}
+%    \end{macrocode}
+% С |a4paper| всё просто --- напечатает одну копию на листе A4, ориентированном вертикально.
+% Ширина текста будет 179mm, а высота 267mm.
+% Текст выровнен по центру (вертикально и горизонтально).
+%    \begin{macrocode}
+%<*a4>
+	\RequirePackage[a4paper, width = 179mm, height = 267mm, footskip = 0mm, centering, includeheadfoot]{geometry}
+	\PassOptionsToClass{a4paper,oneside}{article}
+%</a4>
+%<common>\DeclareOption{a5paper}{\renewcommand{\@paperfile}{a5.clo}}
+%    \end{macrocode}
+% Чуть сложнее с |a5paper|.
+% Он нужен для того, чтобы напечать два вертикальных A5 на одном горизонтальном A4.
+% Признаться честно, я уже забыл, что делают конкретные команды, но это, кажется, работает.
+%    \begin{macrocode}
+%<*a5>
+	\setlength\paperheight {210mm}
+	\setlength\paperwidth  {148mm}
+	\PassOptionsToClass{a5paper,oneside}{article}
+	\RequirePackage{pgfpages}
+	\RequirePackage{atbegshi}
+	\setlength\hoffset{.4in}
+	\setlength\oddsidemargin{-1in}
+	\setlength\textwidth{130mm}
+	\setlength\voffset{-25mm}
+	\setlength\textheight{185mm}
+	\pgfpagesuselayout{2 on 1}[a4paper,landscape,border shrink=5mm]
+	\AtBeginShipout{%
+		\pgfpagesshipoutlogicalpage{1}\copy\AtBeginShipoutBox%
+		\pgfpagesshipoutlogicalpage{2}\box\AtBeginShipoutBox%
+		\pgfshipoutphysicalpage%
+	}
+%</a5>
+%    \end{macrocode}
+% \subsection{Дата и номер листка}
+% |date| задаёт дату листочка в углу.
+% Сейчас значение по умолчанию --- сегодня.
+% Бейте меня палками, если до сих пор не взлетает.
+%    \begin{macrocode}
+%<*common>
+\DeclareStringOption[\DTMToday]{date}
+%    \end{macrocode}
+% |num| --- номер листочка. Влияет на номер задач.
+%    \begin{macrocode}
+\DeclareStringOption[1]{num}
+%    \end{macrocode}
+% Все остальные опции передаются классу |article|.
+%    \begin{macrocode}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\ProcessOptions
+\ProcessKeyvalOptions*
+\LoadClass{article}
+\input{\@paperfile}
+\RequirePackage{iftex}
+%    \end{macrocode}
+% \section{Движки}
+% Вот тут начинается цирк с движками.
+% Проблема заключается в том, что традиционный Web2C движок использует кодировки отличные от utf8 (OT2, T2A, T2B, T2C, etc.)
+% Чем это плохо?
+% В OT2 был очень странный порядок сортировки кириллических букв (Э, Ю, Ж, Й, Ё, Я, А, Б, Ц, Д, Е, Ф и т.д.),
+% что выливается в отвратительные списки и предметные указатели.
+% 
+% Даже игнорируя это факт, мы получаем две проблемы:
+% старый Web2C движок генерирует странный слой текст в pdf (зюковки и кракозябры вместо русского текста),
+% можно использовать только шрифты поддерживающие кодировки T2.
+% Проблемы в том, что был только один такой шрифт, в котором русские буквы имеют равную высоту.
+% Этот шрифт распространялся пакетом |pscyr|, который не обновляется с конца 2000-х годов.
+% И тут нас постигает совсем проблема: |pscyr| сегодня поддерживается только дистрибутивом MiK\TeX.
+%
+% Поэтому предлагается использовать расширенный движок Lua\TeX.
+% Если не вдаваться в подробности, то имеет место простая формула:
+% \begin{multline*}
+% 	\text{Lua\TeX} = \text{pdf\TeX} + \text{Поддержка Unicode и OpenType шрифтов} +\\
+% 	+ \text{e-\TeX} + \text{Omega} + \text{встроенный интерпретатор lua}
+% \end{multline*}
+% 
+% Корректная работа классов семейства |listok| гарантируется при использовании Lua\LaTeX.
+% В теории можно использовать и другие движки, но на свой страх и риск (на момент 19.01.2019 я не мог скомпилировать русский текст с pdf\LaTeX).
+%
+% Движок определяется автоматически по имени запускаемой программы.
+%    \begin{macrocode}
+\ifLuaTeX
+	\input{lua.clo}
+%</common>
+%<*lua>
+	\RequirePackage[TU]{fontenc}
+	\RequirePackage[lutf8]{luainputenc}
+	\RequirePackage{fontspec}
+	\setmainfont{CMU Serif}
+%</lua>
+%<common>\else
+%<pdf>\RequirePackage[utf8]{inputenc}
+%<pdf>\RequirePackage{cmap}
+%<*common>
+	\input{pdf.clo}
+\fi
+%    \end{macrocode}
+% \section{Фишки}
+% Далее идут подключённые пакеты
+%    \begin{macrocode}
+\RequirePackage[russian]{babel}
+\RequirePackage[inline]{enumitem}
+\RequirePackage{textcomp, multicol}
+\RequirePackage{mathtext}
+\RequirePackage{indentfirst}
+\RequirePackage{amsmath, amssymb, amsfonts, amsthm}
+\RequirePackage{mathtools, mathabx}
+\RequirePackage{epstopdf}
+\RequirePackage{graphicx}
+\RequirePackage{forloop}
+\RequirePackage{datetime2}
+\RequirePackage{microtype}
+\relax
+\tolerance 4000
+%    \end{macrocode}
+%|\listok@name| задаёт имя листка, затем используется командой |\maketitle| для заголовка.
+%    \begin{macrocode}
+%<listok>\newcommand{\listok@name}{Листок №\listok@num}
+%<test>\newcommand{\listok@name}{Вариант №\listok@num}
+%<written>\newcommand{\listok@name}{}
+%<ustn>\newcommand{\listok@name}{Фамилия, Имя}
+\renewcommand{\maketitle}{%
+	\begin{center}%
+	{\Large \textit{\textbf{\underline{%
+%<listok>\@title % Лорен ипсум
+%<test>\@title. \listok@name % Контрольная по Лорен ипсум. Вариант №N 
+%<written>Письменное собеседование
+%<ustn>Устное собеседование
+	}}}}
+	\end{center}
+}
+%    \end{macrocode}
+%    \begin{macrocode}
+\DTMsetup{datesep=.}
+\DTMsetstyle{ddmmyyyy}
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+\renewcommand{\@oddhead}{
+	\vbox{\hbox to\textwidth{\listok@name\hfil \strut
+	\listok@date
+	}\hrule}
+}
+\renewcommand{\@oddfoot}{}
+%    \end{macrocode}
+%
+% \subsection{Трансокеанизация}
+% \begin{longtabu} to \textwidth {|c|c|}
+% \hline
+% Команда & Вывод \\
+% \hline
+% \texttt{\textbackslash{}emptyset} & $\varnothing$ \\
+% \hline
+% \texttt{\textbackslash{}le} & $\leqslant$ \\
+% \hline
+% \texttt{\textbackslash{}ge} & $\geqslant$ \\
+% \hline
+% \texttt{\textbackslash{}epsilon} & $\varepsilon$ \\
+% \hline
+% \texttt{\textbackslash{}phi} & $\varphi$ \\
+% \hline
+% \texttt{\textbackslash{}N} & $\mathbb{N}$ \\
+% \hline
+% \texttt{\textbackslash{}Z} & $\mathbb{Z}$ \\
+% \hline
+% \texttt{\textbackslash{}Q} & $\mathbb{Q}$ \\
+% \hline
+% \texttt{\textbackslash{}R} & $\mathbb{R}$ \\
+% \hline
+% \texttt{\textbackslash{}Cx} & $\mathbb{C}$ \\
+% \hline
+% \texttt{\textbackslash{}Re z} & $\operatorname{Re} z$ \\
+% \hline
+% \texttt{\textbackslash{}Im z} & $\operatorname{Im} z$ \\
+% \hline
+% \texttt{\textbackslash{}Zm\{p\}} & $\mathbb{Z}_{p}$ \\
+% \hline
+% \texttt{\textbackslash{}Prob\{Event\}} & $\mathbb{P} \left [ Event \right ] $ \\
+% \hline
+% \texttt{\textbackslash{}ProbV\{\xi\}\{Event\}} & $\mathbb{P}_{\xi} \left [ Event \right ] $ \\
+% \hline
+% \texttt{\textbackslash{}Expect\{\xi\}} & $\mathbb{E} \xi $ \\
+% \hline
+% \texttt{\textbackslash{}pt\{Text\}} & $\text{Text}^\circ$ \\
+% \hline
+% \texttt{Text\textbackslash{}point} & Text${}^\circ$ \\
+% \hline
+% \texttt{Text\textbackslash{}hard} & Text${}^\ast$ \\
+% \hline
+% \end{longtabu}
+%    \begin{macrocode}
+\renewcommand{\emptyset}{\varnothing}
+\renewcommand{\le}{\leqslant}
+\renewcommand{\ge}{\geqslant}
+\renewcommand{\epsilon}{\varepsilon}
+\renewcommand{\phi}{\varphi}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Cx}{\mathbb{C}}
+\renewcommand{\Re}[1]{\operatorname{Re}{#1}}
+\renewcommand{\Im}[1]{\operatorname{Im}{#1}}
+\newcommand{\Zm}[1]{\mathbb{Z}_{#1}}
+\renewcommand{\Prob}[1]{\mathbb{P}\left [ #1 \right ]}
+\newcommand{\ProbV}[2]{\mathbb{P}_{#1}\left [ #2 \right ]}
+\DeclareMathOperator{\Expect}{\mathbb{E}}
+\newcommand{\wdt}{\widetilde}
+\newcommand{\pt}[1]{$\text{#1}^\circ$}
+\newcommand{\point}{${}^\circ$}
+\newcommand{\hard}{${}^\ast$}
+%    \end{macrocode}
+% \subsection{Переопределение кванторов}
+% Проблема: команды \verb|\exists| и \verb|\forall| задают просто символ, а не оператор или что-то ещё.
+% Из этого следует, что на печати надо самим заботиться о пробелах после кванторной связки.
+% Поэтому команды переопределены и ставят \verb|\;| после связки.
+%
+% К тому же доопределён макрос \verb|\existsone|.
+%
+% Команды \verb|\existssym| и \verb|\forallsym| задают символы кванторов в старом смысле.
+%    \begin{macrocode}
+\let\existssym\exists
+\renewcommand*{\exists}[1]{\existssym #1~\;~}
+\newcommand*{\existsone}[1]{\existssym! #1~\;~}
+\let\forallsym\forall
+\renewcommand*{\forall}[1]{\forallsym #1~\;~}
+%    \end{macrocode}
+% \subsection{Остальное}
+% \DescribeMacro{\closure}
+% В <<The Comprehensive \LaTeX{} Symbol List>> Скотт Пакин, рассуждая о различиях \verb|\bar| и \verb|\closure|,
+% рекомендует промежуточный вариант, который придумал Энрико Грегорио и опубликовал во втором издании своего <<Appunti di programmazione in \LaTeX{} e \TeX{}>>,
+% который дословно воспроизведён тут
+%    \begin{macrocode}
+\newcommand{\closure}[2][3]{%
+{}\mkern#1mu\overline{\mkern-#1mu#2}}
+%    \end{macrocode}
+% \DescribeEnv{abstract}
+% Abstract имеет смысл использовать под разные комментарии.
+% Текст печатается по центру курсивом.
+%    \begin{macrocode}
+\renewenvironment{abstract}{\quotation\itshape\centering}{\endquotation}
+%    \end{macrocode}
+% \DescribeEnv{theorem}\DescribeEnv{theorem*}
+% \DescribeEnv{lemma}\DescribeEnv{lemma*}
+% \DescribeEnv{proposition}\DescribeEnv{proposition*}
+% \DescribeEnv{corollary}\DescribeEnv{corollary*}
+% \DescribeEnv{definition}\DescribeEnv{definition*}
+% \DescribeEnv{note}\DescribeEnv{note*}
+% Для вёрстки теорем, лемм, утверждений, следствий, определений и замечаний определены окружения.
+% Вариант со звёздочкой делает нумерованную теорему, etc.
+%    \begin{macrocode}
+\newtheorem{theorem}{Теорема}
+\newtheorem*{theorem*}{Теорема}
+\newtheorem{lemma}{Лемма}
+\newtheorem*{lemma*}{Лемма}
+\newtheorem{proposition}{Утверждение}
+\newtheorem*{proposition*}{Утверждение}
+\newtheorem{corollary}{Следствие}
+\newtheorem*{corollary*}{Следствие}
+\theoremstyle{definition}
+\newtheorem{note}{Замечание}
+\newtheorem*{note*}{Замечание}
+%    \end{macrocode}
+% \DescribeEnv{problem}\DescribeEnv{problem*}
+% \DescribeEnv{example}\DescribeEnv{example*}
+% Новый стиль для \textsf{amsthm} теорем приследует следующую цель.
+% Хотим отрисовывать звёздочку около сложной задачи и кружочек около обязательной.
+% Для этого будем использовать аргумент, который обычно используют для названия теорем!
+%
+% Можно использовать и для примеров.
+%    \begin{macrocode}
+\newtheoremstyle{problem}{0pt}{0pt}{\normalfont}{}{\bfseries}{.}{ }{\thmname{#1}\thmnumber{ #2}\textit{#3}}
+\theoremstyle{problem}
+\newtheorem{example}{Пример}
+\newtheorem*{example*}{Пример}
+\newtheorem{problem}{Задача}
+\newtheorem*{problem*}{Задача}
+\newtheorem*{definition}{Определение}
+\renewcommand \theproblem {%
+%<listok>	\listok@num.\@arabic\c@problem
+%<common&!listok>\@arabic\c@problem
+}
+\renewcommand \theexample {%
+%<listok>	\listok@num.\@arabic\c@example
+%<common&!listok>\@arabic\c@example
+}
+\renewcommand \thetheorem {%
+%<listok>	\listok@num.\@arabic\c@theorem
+%<common&!listok>\@arabic\c@theorem
+}
+%    \end{macrocode}
+% \DescribeMacro{\problems}
+% |\problems| есть переписка с |\section*| из класса \textsf{article}.
+% \DescribeMacro{\theme}
+% |\theme| --- аналог |\subsection*|  из класса \textsf{article}.
+% Рекомендуется использовать, если задачи явно сгруппированы по какой-то теме.
+% Команды \verb|\problems| и \verb|theme| есть только в классе |listok|
+%    \begin{macrocode}
+%<*listok>
+\newcommand \problems{\@startsection{section}{1}{\z@}{-3.5ex \@plus -1ex \@minus -.2ex}{2.3ex \@plus.2ex}{\normalfont\Large\bfseries\centering}*{Задачи}}
+\newcommand \theme{\@startsection{subsection}{2}{\z@}{-3.25ex\@plus -1ex \@minus -.2ex}{1.5ex \@plus .2ex}{\normalfont\large\bfseries}*}
+
+%</listok>
+%    \end{macrocode}
+% \DescribeEnv{vartab}
+% Окружение |vartab|\marg{amount} необходимо для набора таблиц различного размера.
+% amount задаёт количество столбцов.
+%    \begin{macrocode}
+\newenvironment{vartab}[1]
+{
+    \begin{tabular}{*{#1}{|c} |c| } \hline
+}{
+    \end{tabular}
+}
+%    \end{macrocode}
+% \DescribeMacro{\conduit}
+% |\conduit| печатает кондуит.
+% В случае устного собеседования --- это табличка в пять строк и |\c@problem| столбцов (то есть по одному столбцу на задачу).
+% (Три оценки за каждую задачу и подпись).
+% На листочке и контрольной --- табличка с критериями оценки.
+%    \begin{macrocode}
+%<*ustn>
+\newcounter{colidx}
+\newcommand \conduit {
+
+\vspace*{\fill}
+\begin{center}
+\begin{Large}
+\begin{vartab}{\c@problem}
+\hline
+\forloop{colidx}{1}{\not{\value{colidx} > \c@problem}}{\; \arabic{colidx} \; &} \; $\Sigma$ \; \\ \hline
+\forloop{colidx}{1}{\not{\value{colidx} > \c@problem}}{&} \\ \hline
+\forloop{colidx}{1}{\not{\value{colidx} > \c@problem}}{&} \\ \hline
+\forloop{colidx}{1}{\not{\value{colidx} > \c@problem}}{&} \\ \hline
+\forloop{colidx}{1}{\not{\value{colidx} > \c@problem}}{&} \\
+\forloop{colidx}{1}{\not{\value{colidx} > \c@problem}}{&} \\
+\forloop{colidx}{1}{\not{\value{colidx} > \c@problem}}{&} \\ \hline
+\end{vartab}
+\end{Large}
+\end{center}
+}
+%</ustn>
+%<*listok|test>
+\newcommand \conduit [4]{
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\multicolumn{4}{|c|}{Критерии оценок} \\
+\hline
+<<5>> & <<4>> & <<3>> & <<2>> \\ \hline
+#1 задач & #2 задач & #3 задач & #4 задач \\ \hline
+\end{tabular}
+\end{center}
+}
+%</listok|test>
+%    \end{macrocode}
+% \AddEnumerateCounter{\Asbuk}{\@Asbuk}{Ы}
+% \AddEnumerateCounter{\asbuk}{\@asbuk}{ы}
+% \setlist[itemize]{nosep, nolistsep}
+% \newlist{probenum}{enumerate}{1}
+% \newlist{probparts}{enumerate*}{1}
+% \setlist[enumerate]{nosep, nolistsep}
+% \setlist[probenum]{nosep, nolistsep, label = \textbf{\asbuk*.}}
+% \setlist[probparts]{nosep, nolistsep, label = \textbf{(\asbuk*)}}
+% |enumitem| позволяет делать свои списки.
+% Поэтому есть следующие списки:
+% \begin{description}[nolistsep, nosep]
+% 	\item{|enumerate|} Каждый пункт на новой строке, делает так:
+% 	\begin{enumerate*}
+%  		\item,
+%  		\item,
+%  		\item, \dots
+% 	\end{enumerate*}
+% 	\item{|itemize|} Каждый пункт на новой строке, делает так:
+% 	\begin{itemize*}
+% 		\item,
+% 		\item,
+% 		\item, \dots
+% 	\end{itemize*}
+% 	\item{|enumerate*|, |itemize*|} Тоже, что и двое выше, inline версия (все пункты в одну строчку)
+% 	\item{|probenum|} Каждый пункт на новой строке, делает так:
+% 	\begin{probparts}[label = \textbf{\asbuk*.}]
+% 		\item,
+% 		\item,
+% 		\item, \dots
+% 	\end{probparts}
+% 	\item{|probparts|} Inline версия |probenum|, но делает так:
+%	\begin{probparts}
+%		\item,
+%		\item,
+%		\item, \dots
+%	\end{probparts}
+%	\item{|multienum|} Есть один аргумент. Разбивает |probenum| на переданное число столбцов.
+% \end{description}
+%    \begin{macrocode}
+%<*common>
+\AddEnumerateCounter{\Asbuk}{\@Asbuk}{Ы}
+\AddEnumerateCounter{\asbuk}{\@asbuk}{ы}
+\setlist[itemize]{nosep, nolistsep}
+\newlist{probenum}{enumerate}{1}
+\newlist{probparts}{enumerate*}{1}
+\setlist[enumerate]{nosep, nolistsep}
+\setlist[probenum]{nosep, nolistsep, label = \textbf{(\asbuk*)}}
+\setlist[probparts]{nosep, nolistsep, label = \textbf{(\asbuk*)}}
+\newenvironment{multienum}[1]
+{
+	\begin{probenum}
+	\begin{multicols}{#1}
+}{
+	\end{multicols}
+	\end{probenum}
+}
+\endinput
+%</common>
+%    \end{macrocode}
+% \PrintChanges
+% \PrintIndex
+% \Finale
+\endinput
