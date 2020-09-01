@@ -21,10 +21,10 @@
 %% LaTeX version 2005/12/01 or later.
 %% 
 \ProvidesFile{lua.clo}
-\RequirePackage[TU]{fontenc}
-\RequirePackage[lutf8]{luainputenc}
-\RequirePackage{fontspec}
-\setmainfont{CMU Serif}
+    \RequirePackage[TU]{fontenc}
+    \RequirePackage[lutf8]{luainputenc}
+    \RequirePackage{fontspec}
+    \setmainfont{CMU Serif}
 \endinput
 %%
 %% End of file `lua.clo'.

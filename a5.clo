@@ -21,22 +21,22 @@
 %% LaTeX version 2005/12/01 or later.
 %% 
 \ProvidesFile{a5.clo}
-\setlength\paperheight {210mm}
-\setlength\paperwidth  {148mm}
-\PassOptionsToClass{a5paper,oneside}{article}
-\RequirePackage{pgfpages}
-\RequirePackage{atbegshi}
-\setlength\hoffset{.4in}
-\setlength\oddsidemargin{-1in}
-\setlength\textwidth{130mm}
-\setlength\voffset{-25mm}
-\setlength\textheight{185mm}
-\pgfpagesuselayout{2 on 1}[a4paper,landscape,border shrink=5mm]
-\AtBeginShipout{%
-\pgfpagesshipoutlogicalpage{1}\copy\AtBeginShipoutBox%
-\pgfpagesshipoutlogicalpage{2}\box\AtBeginShipoutBox%
-\pgfshipoutphysicalpage%
-}
+    \setlength\paperheight {210mm}
+    \setlength\paperwidth  {148mm}
+    \PassOptionsToClass{a5paper,oneside}{article}
+    \RequirePackage{pgfpages}
+    \RequirePackage{atbegshi}
+    \setlength\hoffset{.4in}
+    \setlength\oddsidemargin{-1in}
+    \setlength\textwidth{130mm}
+    \setlength\voffset{-25mm}
+    \setlength\textheight{185mm}
+    \pgfpagesuselayout{2 on 1}[a4paper,landscape,border shrink=5mm]
+    \AtBeginShipout{%
+        \pgfpagesshipoutlogicalpage{1}\copy\AtBeginShipoutBox%
+        \pgfpagesshipoutlogicalpage{2}\box\AtBeginShipoutBox%
+        \pgfshipoutphysicalpage%
+    }
 \endinput
 %%
 %% End of file `a5.clo'.

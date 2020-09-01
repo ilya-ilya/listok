@@ -21,8 +21,8 @@
 %% LaTeX version 2005/12/01 or later.
 %% 
 \ProvidesFile{a4.clo}
-\RequirePackage[a4paper, width = 179mm, height = 267mm, footskip = 0mm, centering, includeheadfoot]{geometry}
-\PassOptionsToClass{a4paper,oneside}{article}
+    \RequirePackage[a4paper, width = 179mm, height = 267mm, footskip = 0mm, centering, includeheadfoot]{geometry}
+    \PassOptionsToClass{a4paper,oneside}{article}
 \endinput
 %%
 %% End of file `a4.clo'.

@@ -22,7 +22,7 @@
 %% 
 \NeedsTeXFormat{LaTeX2e}[2005/12/01]
 \ProvidesClass{listok}
-[2019/01/09 v2.1  Наши крутые шаблоны для листков]
+    [2019/01/09 v2.1  Наши крутые шаблоны для листков]
 \RequirePackage{kvoptions}
 \newcommand{\@paperfile}{}
 \DeclareOption{a4paper}{\renewcommand{\@paperfile}{a4.clo}}
@@ -36,9 +36,9 @@
 \input{\@paperfile}
 \RequirePackage{iftex}
 \ifLuaTeX
-\input{lua.clo}
+    \input{lua.clo}
 \else
-\input{pdf.clo}
+    \input{pdf.clo}
 \fi
 \RequirePackage[russian]{babel}
 \RequirePackage[inline]{enumitem}
@@ -56,19 +56,19 @@
 \tolerance 4000
 \newcommand{\listok@name}{Листок №\listok@num}
 \renewcommand{\maketitle}{%
-\begin{center}%
-{\Large \textit{\textbf{\underline{%
+    \begin{center}%
+    {\Large \textit{\textbf{\underline{%
 \@title % Лорен ипсум
-}}}}
-\end{center}
+    }}}}
+    \end{center}
 }
 \DTMsetup{datesep=.}
 \DTMsetstyle{ddmmyyyy}
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \renewcommand{\@oddhead}{
-\vbox{\hbox to\textwidth{\listok@name\hfil \strut
-\listok@date
-}\hrule}
+    \vbox{\hbox to\textwidth{\listok@name\hfil \strut
+    \listok@date
+    }\hrule}
 }
 \renewcommand{\@oddfoot}{}
 \renewcommand{\emptyset}{\varnothing}
@@ -107,9 +107,11 @@
 \newtheorem*{proposition*}{Утверждение}
 \newtheorem{corollary}{Следствие}
 \newtheorem*{corollary*}{Следствие}
-\theoremstyle{definition}
-\newtheorem{note}{Замечание}
-\newtheorem*{note*}{Замечание}
+\newtheoremstyle{mynote}{0pt}{0pt}{\normalfont}{}{\itshape}{}{ }{%
+    \thmname{#1}\thmnumber{ #2}\textit{ к задаче \theproblem{}:}
+}
+\theoremstyle{mynote}
+\newtheorem*{note}{Указание}
 \newtheoremstyle{problem}{0pt}{0pt}{\normalfont}{}{\bfseries}{.}{ }{\thmname{#1}\thmnumber{ #2}\textit{#3}}
 \theoremstyle{problem}
 \newtheorem{example}{Пример}
@@ -118,13 +120,13 @@
 \newtheorem*{problem*}{Задача}
 \newtheorem*{definition}{Определение}
 \renewcommand \theproblem {%
- \listok@num.\@arabic\c@problem
+    \listok@num.\@arabic\c@problem
 }
 \renewcommand \theexample {%
- \listok@num.\@arabic\c@example
+    \listok@num.\@arabic\c@example
 }
 \renewcommand \thetheorem {%
- \listok@num.\@arabic\c@theorem
+    \listok@num.\@arabic\c@theorem
 }
 \newcommand \problems{\@startsection{section}{1}{\z@}{-3.5ex \@plus -1ex \@minus -.2ex}{2.3ex \@plus.2ex}{\normalfont\Large\bfseries\centering}*{Задачи}}
 \newcommand \theme{\@startsection{subsection}{2}{\z@}{-3.25ex\@plus -1ex \@minus -.2ex}{1.5ex \@plus .2ex}{\normalfont\large\bfseries}*}
@@ -156,11 +158,11 @@
 \setlist[probparts]{nosep, nolistsep, label = \textbf{(\asbuk*)}}
 \newenvironment{multienum}[1]
 {
-\begin{probenum}
-\begin{multicols}{#1}
+    \begin{probenum}
+    \begin{multicols}{#1}
 }{
-\end{multicols}
-\end{probenum}
+    \end{multicols}
+    \end{probenum}
 }
 \endinput
 %%

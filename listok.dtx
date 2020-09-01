@@ -29,7 +29,7 @@
 %<lua>\ProvidesFile{lua.clo}
 %<pdf>\ProvidesFile{pdf.clo}
 %<*common>
-	[2019/01/09 v2.1  Наши крутые шаблоны для листков]
+    [2019/01/09 v2.1  Наши крутые шаблоны для листков]
 %</common>
 %
 %<*driver>
@@ -71,7 +71,7 @@
 % \maketitle
 %
 % \begin{abstract}
-% 	Классы, используемый нашей командой для вёрстки листков.
+%     Классы, используемый нашей командой для вёрстки листков.
 % \end{abstract}
 %
 % \section{Введение}
@@ -119,8 +119,8 @@
 % Текст выровнен по центру (вертикально и горизонтально).
 %    \begin{macrocode}
 %<*a4>
-	\RequirePackage[a4paper, width = 179mm, height = 267mm, footskip = 0mm, centering, includeheadfoot]{geometry}
-	\PassOptionsToClass{a4paper,oneside}{article}
+    \RequirePackage[a4paper, width = 179mm, height = 267mm, footskip = 0mm, centering, includeheadfoot]{geometry}
+    \PassOptionsToClass{a4paper,oneside}{article}
 %</a4>
 %<common>\DeclareOption{a5paper}{\renewcommand{\@paperfile}{a5.clo}}
 %    \end{macrocode}
@@ -129,22 +129,22 @@
 % Признаться честно, я уже забыл, что делают конкретные команды, но это, кажется, работает.
 %    \begin{macrocode}
 %<*a5>
-	\setlength\paperheight {210mm}
-	\setlength\paperwidth  {148mm}
-	\PassOptionsToClass{a5paper,oneside}{article}
-	\RequirePackage{pgfpages}
-	\RequirePackage{atbegshi}
-	\setlength\hoffset{.4in}
-	\setlength\oddsidemargin{-1in}
-	\setlength\textwidth{130mm}
-	\setlength\voffset{-25mm}
-	\setlength\textheight{185mm}
-	\pgfpagesuselayout{2 on 1}[a4paper,landscape,border shrink=5mm]
-	\AtBeginShipout{%
-		\pgfpagesshipoutlogicalpage{1}\copy\AtBeginShipoutBox%
-		\pgfpagesshipoutlogicalpage{2}\box\AtBeginShipoutBox%
-		\pgfshipoutphysicalpage%
-	}
+    \setlength\paperheight {210mm}
+    \setlength\paperwidth  {148mm}
+    \PassOptionsToClass{a5paper,oneside}{article}
+    \RequirePackage{pgfpages}
+    \RequirePackage{atbegshi}
+    \setlength\hoffset{.4in}
+    \setlength\oddsidemargin{-1in}
+    \setlength\textwidth{130mm}
+    \setlength\voffset{-25mm}
+    \setlength\textheight{185mm}
+    \pgfpagesuselayout{2 on 1}[a4paper,landscape,border shrink=5mm]
+    \AtBeginShipout{%
+        \pgfpagesshipoutlogicalpage{1}\copy\AtBeginShipoutBox%
+        \pgfpagesshipoutlogicalpage{2}\box\AtBeginShipoutBox%
+        \pgfshipoutphysicalpage%
+    }
 %</a5>
 %    \end{macrocode}
 % \subsection{Дата и номер листка}
@@ -174,7 +174,7 @@
 % Чем это плохо?
 % В OT2 был очень странный порядок сортировки кириллических букв (Э, Ю, Ж, Й, Ё, Я, А, Б, Ц, Д, Е, Ф и т.д.),
 % что выливается в отвратительные списки и предметные указатели.
-% 
+%
 % Даже игнорируя это факт, мы получаем две проблемы:
 % старый Web2C движок генерирует странный слой текст в pdf (зюковки и кракозябры вместо русского текста),
 % можно использовать только шрифты поддерживающие кодировки T2.
@@ -185,29 +185,29 @@
 % Поэтому предлагается использовать расширенный движок Lua\TeX.
 % Если не вдаваться в подробности, то имеет место простая формула:
 % \begin{multline*}
-% 	\text{Lua\TeX} = \text{pdf\TeX} + \text{Поддержка Unicode и OpenType шрифтов} +\\
-% 	+ \text{e-\TeX} + \text{Omega} + \text{встроенный интерпретатор lua}
+%     \text{Lua\TeX} = \text{pdf\TeX} + \text{Поддержка Unicode и OpenType шрифтов} +\\
+%     + \text{e-\TeX} + \text{Omega} + \text{встроенный интерпретатор lua}
 % \end{multline*}
-% 
+%
 % Корректная работа классов семейства |listok| гарантируется при использовании Lua\LaTeX.
 % В теории можно использовать и другие движки, но на свой страх и риск (на момент 19.01.2019 я не мог скомпилировать русский текст с pdf\LaTeX).
 %
 % Движок определяется автоматически по имени запускаемой программы.
 %    \begin{macrocode}
 \ifLuaTeX
-	\input{lua.clo}
+    \input{lua.clo}
 %</common>
 %<*lua>
-	\RequirePackage[TU]{fontenc}
-	\RequirePackage[lutf8]{luainputenc}
-	\RequirePackage{fontspec}
-	\setmainfont{CMU Serif}
+    \RequirePackage[TU]{fontenc}
+    \RequirePackage[lutf8]{luainputenc}
+    \RequirePackage{fontspec}
+    \setmainfont{CMU Serif}
 %</lua>
 %<common>\else
 %<pdf>\RequirePackage[utf8]{inputenc}
 %<pdf>\RequirePackage{cmap}
 %<*common>
-	\input{pdf.clo}
+    \input{pdf.clo}
 \fi
 %    \end{macrocode}
 % \section{Фишки}
@@ -235,14 +235,14 @@
 %<written>\newcommand{\listok@name}{}
 %<ustn>\newcommand{\listok@name}{Фамилия, Имя}
 \renewcommand{\maketitle}{%
-	\begin{center}%
-	{\Large \textit{\textbf{\underline{%
+    \begin{center}%
+    {\Large \textit{\textbf{\underline{%
 %<listok>\@title % Лорен ипсум
-%<test>\@title. \listok@name % Контрольная по Лорен ипсум. Вариант №N 
+%<test>\@title. \listok@name % Контрольная по Лорен ипсум. Вариант №N
 %<written>Письменное собеседование
 %<ustn>Устное собеседование
-	}}}}
-	\end{center}
+    }}}}
+    \end{center}
 }
 %    \end{macrocode}
 %    \begin{macrocode}
@@ -250,9 +250,9 @@
 \DTMsetstyle{ddmmyyyy}
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \renewcommand{\@oddhead}{
-	\vbox{\hbox to\textwidth{\listok@name\hfil \strut
-	\listok@date
-	}\hrule}
+    \vbox{\hbox to\textwidth{\listok@name\hfil \strut
+    \listok@date
+    }\hrule}
 }
 \renewcommand{\@oddfoot}{}
 %    \end{macrocode}
@@ -358,7 +358,6 @@
 % \DescribeEnv{proposition}\DescribeEnv{proposition*}
 % \DescribeEnv{corollary}\DescribeEnv{corollary*}
 % \DescribeEnv{definition}\DescribeEnv{definition*}
-% \DescribeEnv{note}\DescribeEnv{note*}
 % Для вёрстки теорем, лемм, утверждений, следствий, определений и замечаний определены окружения.
 % Вариант со звёздочкой делает нумерованную теорему, etc.
 %    \begin{macrocode}
@@ -370,10 +369,15 @@
 \newtheorem*{proposition*}{Утверждение}
 \newtheorem{corollary}{Следствие}
 \newtheorem*{corollary*}{Следствие}
-\theoremstyle{definition}
-\newtheorem{note}{Замечание}
-\newtheorem*{note*}{Замечание}
 %    \end{macrocode}
+% \DescribeEnv{note}
+% Попробую сделать крутые указания к задаче.
+% Более того окружение само знает, что оно --- указание к последней задаче.
+\newtheoremstyle{mynote}{0pt}{0pt}{\normalfont}{}{\itshape}{}{ }{%
+    \thmname{#1}\thmnumber{ #2}\textit{ к задаче \theproblem{}:}
+}
+\theoremstyle{mynote}
+\newtheorem*{note}{Указание}
 % \DescribeEnv{problem}\DescribeEnv{problem*}
 % \DescribeEnv{example}\DescribeEnv{example*}
 % Новый стиль для \textsf{amsthm} теорем приследует следующую цель.
@@ -390,15 +394,15 @@
 \newtheorem*{problem*}{Задача}
 \newtheorem*{definition}{Определение}
 \renewcommand \theproblem {%
-%<listok>	\listok@num.\@arabic\c@problem
+%<listok>    \listok@num.\@arabic\c@problem
 %<common&!listok>\@arabic\c@problem
 }
 \renewcommand \theexample {%
-%<listok>	\listok@num.\@arabic\c@example
+%<listok>    \listok@num.\@arabic\c@example
 %<common&!listok>\@arabic\c@example
 }
 \renewcommand \thetheorem {%
-%<listok>	\listok@num.\@arabic\c@theorem
+%<listok>    \listok@num.\@arabic\c@theorem
 %<common&!listok>\@arabic\c@theorem
 }
 %    \end{macrocode}
@@ -478,32 +482,32 @@
 % |enumitem| позволяет делать свои списки.
 % Поэтому есть следующие списки:
 % \begin{description}[nolistsep, nosep]
-% 	\item{|enumerate|} Каждый пункт на новой строке, делает так:
-% 	\begin{enumerate*}
-%  		\item,
-%  		\item,
-%  		\item, \dots
-% 	\end{enumerate*}
-% 	\item{|itemize|} Каждый пункт на новой строке, делает так:
-% 	\begin{itemize*}
-% 		\item,
-% 		\item,
-% 		\item, \dots
-% 	\end{itemize*}
-% 	\item{|enumerate*|, |itemize*|} Тоже, что и двое выше, inline версия (все пункты в одну строчку)
-% 	\item{|probenum|} Каждый пункт на новой строке, делает так:
-% 	\begin{probparts}[label = \textbf{\asbuk*.}]
-% 		\item,
-% 		\item,
-% 		\item, \dots
-% 	\end{probparts}
-% 	\item{|probparts|} Inline версия |probenum|, но делает так:
-%	\begin{probparts}
-%		\item,
-%		\item,
-%		\item, \dots
-%	\end{probparts}
-%	\item{|multienum|} Есть один аргумент. Разбивает |probenum| на переданное число столбцов.
+%     \item{|enumerate|} Каждый пункт на новой строке, делает так:
+%     \begin{enumerate*}
+%          \item,
+%          \item,
+%          \item, \dots
+%     \end{enumerate*}
+%     \item{|itemize|} Каждый пункт на новой строке, делает так:
+%     \begin{itemize*}
+%         \item,
+%         \item,
+%         \item, \dots
+%     \end{itemize*}
+%     \item{|enumerate*|, |itemize*|} Тоже, что и двое выше, inline версия (все пункты в одну строчку)
+%     \item{|probenum|} Каждый пункт на новой строке, делает так:
+%     \begin{probparts}[label = \textbf{\asbuk*.}]
+%         \item,
+%         \item,
+%         \item, \dots
+%     \end{probparts}
+%     \item{|probparts|} Inline версия |probenum|, но делает так:
+%    \begin{probparts}
+%        \item,
+%        \item,
+%        \item, \dots
+%    \end{probparts}
+%    \item{|multienum|} Есть один аргумент. Разбивает |probenum| на переданное число столбцов.
 % \end{description}
 %    \begin{macrocode}
 %<*common>
@@ -517,11 +521,11 @@
 \setlist[probparts]{nosep, nolistsep, label = \textbf{(\asbuk*)}}
 \newenvironment{multienum}[1]
 {
-	\begin{probenum}
-	\begin{multicols}{#1}
+    \begin{probenum}
+    \begin{multicols}{#1}
 }{
-	\end{multicols}
-	\end{probenum}
+    \end{multicols}
+    \end{probenum}
 }
 \endinput
 %</common>
