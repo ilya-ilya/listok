@@ -160,6 +160,10 @@
 %    \begin{macrocode}
 \DeclareStringOption[1]{num}
 %    \end{macrocode}
+% |solutions| отвечает за вёрстку решений.
+%    \begin{macrocode}
+\DeclareBoolOption{solutions}
+%    \end{macrocode}
 % Все остальные опции передаются классу |article|.
 %    \begin{macrocode}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
@@ -226,6 +230,7 @@
 \RequirePackage{forloop}
 \RequirePackage{datetime2}
 \RequirePackage{microtype}
+\RequirePackage{comment}
 \relax
 \tolerance 4000
 %    \end{macrocode}
@@ -374,11 +379,27 @@
 % \DescribeEnv{note}
 % Попробую сделать крутые указания к задаче.
 % Более того окружение само знает, что оно --- указание к последней задаче.
+%    \begin{macrocode}
 \newtheoremstyle{mynote}{0pt}{0pt}{\normalfont}{}{\itshape}{}{ }{%
     \thmname{#1}\thmnumber{ #2}\textit{ к задаче \theproblem{}:}
 }
 \theoremstyle{mynote}
 \newtheorem*{note}{Указание}
+%    \end{macrocode}
+% \DescribeEnv{solution}
+% На основе указания сделаны решения. Верстаются только если класс вызван с опцией |solutions|.
+%    \begin{macrocode}
+\iflistok@solutions
+\newtheoremstyle{solution}{0pt}{0pt}{\normalfont}{}{\itshape}{}{ }{%
+    \thmname{#1}\thmnumber{ #2}\textit{ задачи \theproblem{}:}
+}
+\theoremstyle{solution}
+\newtheorem*{solution}{Решение}
+\else
+\excludecomment{solution}
+\fi
+%    \end{macrocode}
+% 
 % \DescribeEnv{problem}\DescribeEnv{problem*}
 % \DescribeEnv{example}\DescribeEnv{example*}
 % Новый стиль для \textsf{amsthm} теорем приследует следующую цель.
