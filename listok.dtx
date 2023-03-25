@@ -1,6 +1,6 @@
 % \iffalse meta-comment
 %
-% Copyright (C) 2018 by Ilya
+% Copyright (C) 2018-2023 by Ilya
 % -----------------------------------
 %
 % This file may be distributed and/or modified under the
@@ -29,7 +29,7 @@
 %<lua>\ProvidesFile{lua.clo}
 %<pdf>\ProvidesFile{pdf.clo}
 %<*common>
-    [2019/01/09 v2.1  Наши крутые шаблоны для листков]
+    [2023/03/26 v2.2  Наши крутые шаблоны для листков]
 %</common>
 %
 %<*driver>
@@ -40,7 +40,7 @@
 \setmainfont{CMU Serif}
 \setmonofont{3270 Condensed}
 \usepackage[russian]{babel}
-\usepackage[a4paper, height = 270mm, left = 2.5cm, right = 2.5cm, centering]{geometry}
+\usepackage[a4paper, height = 270mm, left = 3.2cm, right = .5cm, centering]{geometry}
 \usepackage{longtable}
 \usepackage{tabu}
 \usepackage{multirow}
@@ -84,13 +84,13 @@
 %
 % Разница между ними описана в следующей табличке
 %
-% \begin{longtabu} to 100mm {|c|c|c|c|c|}
+% \begin{longtabu} to \textwidth {|c|c|c|c|c|}
 % \hline
 %  & \textsf{listok} & \textsf{test} & \textsf{written} & \textsf{ustn} \\
 % \hline
 % \multirow{2}{*}{Заголовок} & \multicolumn{4}{c|}{\texttt{\textbackslash{}title\{Title\}}} \\
 % \cline{2-5}
-% & {\Large \textit{ \textbf{ \underline{Title}}}} &  {\Large \textit{ \textbf{ \underline{Title. Вариант №|num| }}}} & \multicolumn{2}{c|}{\Large \textit{ \textbf{ \underline{\dots{}  собеседование}}}}\\
+% & {\textit{ \textbf{ \underline{Title}}}} &  {\textit{ \textbf{ \underline{Title. Вариант №|num| }}}} & \multicolumn{2}{c|}{\textit{ \textbf{ \underline{\dots{}  собеседование}}}}\\
 % \hline
 % \multirow{2}{*}{Задача} & \multicolumn{4}{c|}{\texttt{\textbackslash{}begin\{problem\}[Text]}} \\
 % \cline{2-5}
@@ -130,8 +130,8 @@
 % Признаться честно, я уже забыл, что делают конкретные команды, но это, кажется, работает.
 %    \begin{macrocode}
 %<*a5>
-    \setlength\paperheight {210mm}
-    \setlength\paperwidth  {148mm}
+    \setlength\paperheight{210mm}
+    \setlength\paperwidth{148mm}
     \PassOptionsToClass{a5paper,oneside}{article}
     \RequirePackage{pgfpages}
     \RequirePackage{atbegshi}
@@ -263,6 +263,7 @@
 \renewcommand{\@oddfoot}{}
 %    \end{macrocode}
 %
+% \pagebreak{}
 % \subsection{Трансокеанизация}
 % \begin{longtabu} to \textwidth {|c|c|}
 % \hline
@@ -346,7 +347,7 @@
 %    \end{macrocode}
 % \subsection{Остальное}
 % \DescribeMacro{\closure}
-% В <<The Comprehensive \LaTeX{} Symbol List>> Скотт Пакин, рассуждая о различиях \verb|\bar| и \verb|\closure|,
+% <<Крышка>> сверху. В <<The Comprehensive \LaTeX{} Symbol List>> Скотт Пакин, рассуждая о различиях \verb|\bar| и \verb|\closure|,
 % рекомендует промежуточный вариант, который придумал Энрико Грегорио и опубликовал во втором издании своего <<Appunti di programmazione in \LaTeX{} e \TeX{}>>,
 % который дословно воспроизведён тут
 %    \begin{macrocode}
