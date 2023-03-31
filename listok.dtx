@@ -29,7 +29,7 @@
 %<lua>\ProvidesFile{lua.clo}
 %<pdf>\ProvidesFile{pdf.clo}
 %<*common>
-    [2023/03/26 v2.2  Наши крутые шаблоны для листков]
+    [2023/03/31 v2.3  Наши крутые шаблоны для листков]
 %</common>
 %
 %<*driver>
@@ -364,9 +364,8 @@
 % \DescribeEnv{lemma}\DescribeEnv{lemma*}
 % \DescribeEnv{proposition}\DescribeEnv{proposition*}
 % \DescribeEnv{corollary}\DescribeEnv{corollary*}
-% \DescribeEnv{definition}\DescribeEnv{definition*}
-% Для вёрстки теорем, лемм, утверждений, следствий, определений и замечаний определены окружения.
-% Вариант со звёздочкой делает нумерованную теорему, etc.
+% Для вёрстки теорем, лемм, утверждений, следствий и замечаний определены окружения.
+% Вариант со звёздочкой делает ненумерованную теорему, etc.
 %    \begin{macrocode}
 \newtheorem{theorem}{Теорема}
 \newtheorem*{theorem*}{Теорема}
@@ -415,7 +414,12 @@
 \newtheorem*{example*}{Пример}
 \newtheorem{problem}{Задача}
 \newtheorem*{problem*}{Задача}
+%    \end{macrocode}
+% \DescribeEnv{definition}\DescribeEnv{definition*}
+% В отличие от всех остальных окружений, |definition| --- ненумерованный вариант, а |definition*| --- нумерованный.
+%    \begin{macrocode}
 \newtheorem*{definition}{Определение}
+\newtheorem{definition*}{Определение}
 \renewcommand \theproblem {%
 %<listok>    \listok@num.\@arabic\c@problem
 %<common&!listok>\@arabic\c@problem
